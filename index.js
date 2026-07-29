@@ -43,6 +43,22 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: "ok" });
 });
 
+app.get('/tasks', (req, res) => {
+  const stmt = db.prepare('SELECT * FROM tasks');
+  const rows = stmt.all();
+  res.status(200).json(rows.map(formatTask));
+});
+
+app.get('/tasks/:id',(req,res)=>{
+  const taskId = parseInt(req.params.id, 10);
+  const stmt = db.prepare('SELECT * FROM tasks WHERE id = ?');
+  const row = stmt.get(taskId);
+
+  if (!row) {
+    return res.status(404).json({ error: "Task not found" });
+  }
+  res.status(200).json(formatTask(row));
+});
 // ----------------------------------------------------
 // STAGE 2: READ Endpoints (All Tasks & Single Task)
 // ----------------------------------------------------
