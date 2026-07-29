@@ -8,7 +8,12 @@ SQLite was chosen because it provides single-file storage with zero configuratio
 ## Database Details
 * **File Location:** `tasks.db` (auto-created on startup, git-ignored)
 * **Table Schema:** `tasks` (id INTEGER, title TEXT, done INTEGER)
-
+## SQL EXPLORATION
+Executed directly via DB Browser for SQLite:
+```bash
+SELECT * FROM tasks WHERE done = 1;
+```
+Result: Returns all completed tasks directly from the persistent storage file.
 ## How to Run
 ```bash
 npm install
@@ -39,3 +44,4 @@ node index.js
 
 
 ```
+
