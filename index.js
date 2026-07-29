@@ -71,56 +71,55 @@ app.post('/tasks', (req, res) => {
   const newRow=newTaskStmt.get(info.lastInsertRowid);
   res.status(201).json(formatTask(newRow));
 });
-// ----------------------------------------------------
-// STAGE 3: CREATE Endpoint (POST)
-// ----------------------------------------------------
+//stage 3: Update and delete database
 
-
-// ----------------------------------------------------
-// STAGE 4: UPDATE & DELETE Endpoints (PUT & DELETE)
-// ----------------------------------------------------
 app.put('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id, 10);
-  const task = tasks.find(t => t.id === taskId);
+  
+  const checkStmt = db.prepare('SELECT * FROM tasks WHERE id = ?');
+  const existingRow = checkStmt.get(taskId);
 
-  if (!task) {
-    return res.status(404).json({ error: `Task ${taskId} not found` });
+  if (!existingRow) {
+    return res.status(404).json({ error: "Task not found" });
   }
 
   const { title, done } = req.body;
+  let newTitle = existingRow.title;
+  let newDone = existingRow.done;
 
   if (title !== undefined) {
     if (typeof title !== 'string' || title.trim() === '') {
       return res.status(400).json({ error: "Title must be a non-empty string." });
     }
-    task.title = title.trim();
+    newTitle = title.trim();
   }
 
   if (done !== undefined) {
     if (typeof done !== 'boolean') {
       return res.status(400).json({ error: "Done must be a boolean." });
     }
-    task.done = done;
+    newDone = done ? 1 : 0;
   }
 
-  res.status(200).json(task);
+  const updateStmt = db.prepare('UPDATE tasks SET title = ?, done = ? WHERE id = ?');
+  updateStmt.run(newTitle, newDone, taskId);
+
+  const updatedRow = checkStmt.get(taskId);
+  res.status(200).json(formatTask(updatedRow));
 });
 
 app.delete('/tasks/:id', (req, res) => {
   const taskId = parseInt(req.params.id, 10);
-  const index = tasks.findIndex(t => t.id === taskId);
+  const deleteStmt = db.prepare('DELETE FROM tasks WHERE id = ?');
+  const info = deleteStmt.run(taskId);
 
-  if (index === -1) {
-    return res.status(404).json({ error: `Task ${taskId} not found` });
+  if (info.changes === 0) {
+    return res.status(404).json({ error: "Task not found" });
   }
 
-  tasks.splice(index, 1);
   res.status(204).send();
 });
-
-// ----------------------------------------------------
-// STAGE 5: Swagger UI Integration
-// ----------------------------------------------------
+// stage 5: UI Integration
 try {
   const swaggerDocument = JSON.parse(fs.readFileSync('./openapi.json', 'utf8'));
   app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
