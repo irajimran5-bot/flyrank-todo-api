@@ -32,9 +32,7 @@ function formatTask(row) {
     done: Boolean(row.done)
   };
 }
-// ----------------------------------------------------
-// STAGE 1: Root & Health Endpoints
-// ----------------------------------------------------
+//stage 1: root & health + read endpoints (database)
 app.get('/', (req, res) => {
   res.status(200).json({ name: "Task API", version: "1.0", endpoints: ["/tasks"] });
 });
@@ -59,26 +57,7 @@ app.get('/tasks/:id',(req,res)=>{
   }
   res.status(200).json(formatTask(row));
 });
-// ----------------------------------------------------
-// STAGE 2: READ Endpoints (All Tasks & Single Task)
-// ----------------------------------------------------
-app.get('/tasks', (req, res) => {
-  res.status(200).json(tasks);
-});
-
-app.get('/tasks/:id', (req, res) => {
-  const taskId = parseInt(req.params.id, 10);
-  const task = tasks.find(t => t.id === taskId);
-
-  if (!task) {
-    return res.status(404).json({ error: `Task ${taskId} not found` });
-  }
-  res.status(200).json(task);
-});
-
-// ----------------------------------------------------
-// STAGE 3: CREATE Endpoint (POST)
-// ----------------------------------------------------
+// stage 2: create enpoints(Database insert)
 app.post('/tasks', (req, res) => {
   const { title } = req.body;
 
@@ -86,16 +65,16 @@ app.post('/tasks', (req, res) => {
     return res.status(400).json({ error: "Title is required and must be a non-empty string." });
   }
 
-  const nextId = tasks.length > 0 ? Math.max(...tasks.map(t => t.id)) + 1 : 1;
-  const newTask = {
-    id: nextId,
-    title: title.trim(),
-    done: false
-  };
-
-  tasks.push(newTask);
-  res.status(201).json(newTask);
+  const stmt=db.prepare('INSERT INTO tasks (title, done) VALUES (?,?)');
+  const info=stmt.run(title.trim(),0);
+  const newTaskStmt=db.prepare('SELECT * FROM tasks WHERE id = ?');
+  const newRow=newTaskStmt.get(info.lastInsertRowid);
+  res.status(201).json(formatTask(newRow));
 });
+// ----------------------------------------------------
+// STAGE 3: CREATE Endpoint (POST)
+// ----------------------------------------------------
+
 
 // ----------------------------------------------------
 // STAGE 4: UPDATE & DELETE Endpoints (PUT & DELETE)
