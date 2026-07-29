@@ -8,40 +8,26 @@ SQLite was chosen because it provides single-file storage with zero configuratio
 ## Database Details
 * **File Location:** `tasks.db` (auto-created on startup, git-ignored)
 * **Table Schema:** `tasks` (id INTEGER, title TEXT, done INTEGER)
-## SQL EXPLORATION
+
+## SQL Exploration
 Executed directly via DB Browser for SQLite:
-```bash
+```sql
 SELECT * FROM tasks WHERE done = 1;
-```
 Result: Returns all completed tasks directly from the persistent storage file.
-## How to Run
-```bash
+
+How to Run
+Clone this repository:
+
+Bash
+git clone [https://github.com/irajimran5-bot/flyrank-todo-api.git](https://github.com/irajimran5-bot/flyrank-todo-api.git)
+cd flyrank-w2-a1
+Install dependencies:
+
+Bash
 npm install
+Start the server:
+
+Bash
 node index.js
-
-1. Clone this repository:
-   ```bash
-   git clone <YOUR_GITHUB_REPO_URL>
-   cd flyrank-w2-a1
-
-```
-
-2. Install dependencies:
-```bash
-npm install
-
-```
-
-
-3. Start the server:
-```bash
-node index.js
-
-```
-
-
-4. Access Swagger UI docs at: `http://localhost:3000/docs`
-
-
-```
+Access Swagger UI docs at: http://localhost:3000/docs
 
