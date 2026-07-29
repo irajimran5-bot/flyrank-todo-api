@@ -1,20 +1,37 @@
 const express = require('express');
 const swaggerUi = require('swagger-ui-express');
 const fs = require('fs');
-
+const Database=require('better-sqlite3');
 const app = express();
 const PORT = 3000;
 
 // Middleware to parse incoming JSON bodies
 app.use(express.json());
+//stage 0
+const db=new Database('tasks.db');
+db.exec(`
+  CREATE TABLE IF NOT EXISTS tasks(
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  title TEXT NOT NULL,
+  done INTEGER NOT NULL DEFAULT 0)
+`);
+const countStmt = db.prepare('SELECT COUNT(*) AS count FROM tasks');
+const { count } = countStmt.get();
 
-// In-Memory Task Database
-let tasks = [
-  { id: 1, title: 'Learn Express CRUD', done: true },
-  { id: 2, title: 'Build FlyRank A1 Assignment', done: false },
-  { id: 3, title: 'Prepare for Capstone Project', done: false }
-];
-
+if (count === 0) {
+  const insertSeed = db.prepare('INSERT INTO tasks (title, done) VALUES (?, ?)');
+  insertSeed.run('Learn Express CRUD', 1);
+  insertSeed.run('Build FlyRank A1 Assignment', 0);
+  insertSeed.run('Prepare for Capstone Project', 0);
+}
+function formatTask(row) {
+  if (!row) return null;
+  return {
+    id: row.id,
+    title: row.title,
+    done: Boolean(row.done)
+  };
+}
 // ----------------------------------------------------
 // STAGE 1: Root & Health Endpoints
 // ----------------------------------------------------
