@@ -15,29 +15,36 @@ const pool = new Pool({
   connectionString: process.env.DATABASE_URL,
 });
 
-// Initialize DB Table and Seed Initial Data
-async function initDB() {
-  try {
-    await pool.query(`
-      CREATE TABLE IF NOT EXISTS tasks (
-        id SERIAL PRIMARY KEY,
-        title TEXT NOT NULL,
-        done BOOLEAN NOT NULL DEFAULT FALSE
-      )
-    `);
+// Initialize DB Table and Seed Initial Data (with Retry Logic)
+async function initDB(retries = 5) {
+  while (retries > 0) {
+    try {
+      await pool.query(`
+        CREATE TABLE IF NOT EXISTS tasks (
+          id SERIAL PRIMARY KEY,
+          title TEXT NOT NULL,
+          done BOOLEAN NOT NULL DEFAULT FALSE
+        )
+      `);
 
-    const countRes = await pool.query('SELECT COUNT(*) FROM tasks');
-    if (parseInt(countRes.rows[0].count, 10) === 0) {
-      await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Learn Express CRUD', true]);
-      await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Build FlyRank A1 Assignment', false]);
-      await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Prepare for Capstone Project', false]);
-      console.log('Seeded 3 initial tasks.');
+      const countRes = await pool.query('SELECT COUNT(*) FROM tasks');
+      if (parseInt(countRes.rows[0].count, 10) === 0) {
+        await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Learn Express CRUD', true]);
+        await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Build FlyRank A1 Assignment', false]);
+        await pool.query('INSERT INTO tasks (title, done) VALUES ($1, $2)', ['Prepare for Capstone Project', false]);
+        console.log('Seeded 3 initial tasks.');
+      }
+      console.log('Postgres Database Connected Successfully!');
+      break;
+    } catch (err) {
+      console.log(`Database not ready yet... Retrying in 2s (${retries} attempts left)`);
+      retries -= 1;
+      await new Promise(res => setTimeout(res, 2000));
     }
-  } catch (err) {
-    console.error('Error initializing Postgres database:', err);
   }
 }
 
+// Call function to start connection
 initDB();
 
 // Root & Health Endpoints
@@ -53,6 +60,7 @@ app.get('/health', async (req, res) => {
     res.status(500).json({ status: "error", db: "disconnected" });
   }
 });
+
 app.get('/tasks', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM tasks ORDER BY id ASC');
@@ -74,6 +82,7 @@ app.get('/tasks/:id', async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+
 app.post('/tasks', async (req, res) => {
   const { title } = req.body;
   if (!title || typeof title !== 'string' || title.trim() === '') {
