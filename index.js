@@ -74,3 +74,81 @@ app.get('/tasks/:id', async (req, res) => {
     res.status(500).json({ error: "Internal server error" });
   }
 });
+app.post('/tasks', async (req, res) => {
+  const { title } = req.body;
+  if (!title || typeof title !== 'string' || title.trim() === '') {
+    return res.status(400).json({ error: "Title is required and must be a non-empty string." });
+  }
+
+  try {
+    const result = await pool.query(
+      'INSERT INTO tasks (title, done) VALUES ($1, $2) RETURNING *',
+      [title.trim(), false]
+    );
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to create task" });
+  }
+});
+
+app.put('/tasks/:id', async (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  try {
+    const checkRes = await pool.query('SELECT * FROM tasks WHERE id = $1', [taskId]);
+    if (checkRes.rows.length === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+
+    const existingTask = checkRes.rows[0];
+    const { title, done } = req.body;
+
+    let newTitle = existingTask.title;
+    let newDone = existingTask.done;
+
+    if (title !== undefined) {
+      if (typeof title !== 'string' || title.trim() === '') {
+        return res.status(400).json({ error: "Title must be a non-empty string." });
+      }
+      newTitle = title.trim();
+    }
+
+    if (done !== undefined) {
+      if (typeof done !== 'boolean') {
+        return res.status(400).json({ error: "Done must be a boolean." });
+      }
+      newDone = done;
+    }
+
+    const updateRes = await pool.query(
+      'UPDATE tasks SET title = $1, done = $2 WHERE id = $3 RETURNING *',
+      [newTitle, newDone, taskId]
+    );
+    res.status(200).json(updateRes.rows[0]);
+  } catch (err) {
+    res.status(500).json({ error: "Failed to update task" });
+  }
+});
+
+app.delete('/tasks/:id', async (req, res) => {
+  const taskId = parseInt(req.params.id, 10);
+  try {
+    const deleteRes = await pool.query('DELETE FROM tasks WHERE id = $1', [taskId]);
+    if (deleteRes.rowCount === 0) {
+      return res.status(404).json({ error: "Task not found" });
+    }
+    res.status(204).send();
+  } catch (err) {
+    res.status(500).json({ error: "Failed to delete task" });
+  }
+});
+
+try {
+  const swaggerDocument = JSON.parse(fs.readFileSync('./openapi.json', 'utf8'));
+  app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+} catch (err) {
+  console.log("Swagger UI setup skipped.");
+}
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port ${PORT}`);
+});
