@@ -31,3 +31,15 @@ app.post('/auth/login', async (req, res) => {
     user: data.user
   });
 });
+//public route
+app.get('/public/info', (req, res) => {
+  res.status(200).json({ message: "Welcome stranger! This info is public." });
+});
+//protected route
+app.get('/protected/profile', (req, res) => {
+  const authHeader = req.headers.authorization;
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: "Access token required" });
+  }
+  res.status(200).json({ message: "Token detected!" });
+});
