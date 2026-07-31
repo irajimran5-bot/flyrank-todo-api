@@ -1,9 +1,19 @@
 {
   "openapi": "3.0.0",
   "info": {
-    "title": "Task API",
+    "title": "Task & Auth API",
     "version": "1.0.0",
-    "description": "Express CRUD API built for FlyRank Backend Assignment A1"
+    "description": "Express Auth & Task Management API built for FlyRank Backend Assignment A4"
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT",
+        "description": "Enter your Supabase access_token here after logging in."
+      }
+    }
   },
   "paths": {
     "/": {
@@ -16,6 +26,105 @@
       "get": {
         "summary": "Health check endpoint",
         "responses": { "200": { "description": "Server is healthy" } }
+      }
+    },
+    "/auth/signup": {
+      "post": {
+        "summary": "Create a new user account",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "test@example.com" },
+                  "password": { "type": "string", "example": "password123" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": { "description": "User created successfully" },
+          "400": { "description": "Bad Request (Missing fields or error)" }
+        }
+      }
+    },
+    "/auth/login": {
+      "post": {
+        "summary": "Authenticate user and return JWT",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": { "type": "string", "example": "test@example.com" },
+                  "password": { "type": "string", "example": "password123" }
+                },
+                "required": ["email", "password"]
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": { "description": "Login successful - returns access_token and refresh_token" },
+          "400": { "description": "Missing credentials" },
+          "401": { "description": "Invalid login credentials" }
+        }
+      }
+    },
+    "/auth/logout": {
+      "post": {
+        "summary": "End the user session",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "204": { "description": "Logout successful - No Content" },
+          "401": { "description": "Access token required or invalid" }
+        }
+      }
+    },
+    "/public/info": {
+      "get": {
+        "summary": "Read public open data",
+        "responses": {
+          "200": { "description": "Success - Returns public message" }
+        }
+      }
+    },
+    "/protected/profile": {
+      "get": {
+        "summary": "Read authenticated user profile data",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": { "description": "Success - Returns user profile" },
+          "401": { "description": "Access token required or invalid/expired token" }
+        }
+      }
+    },
+    "/protected/dashboard": {
+      "get": {
+        "summary": "Read protected dashboard data",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": { "description": "Success - Returns dashboard data" },
+          "401": { "description": "Access token required or invalid/expired token" }
+        }
       }
     },
     "/tasks": {
