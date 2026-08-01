@@ -1,0 +1,322 @@
+[
+  {
+    "id": 1,
+    "title": "A Light in the Attic",
+    "price_gbp": 51.77,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:49.888Z"
+  },
+  {
+    "id": 2,
+    "title": "Tipping the Velvet",
+    "price_gbp": 53.74,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.910Z"
+  },
+  {
+    "id": 3,
+    "title": "Soumission",
+    "price_gbp": 50.1,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.912Z"
+  },
+  {
+    "id": 4,
+    "title": "Sharp Objects",
+    "price_gbp": 47.82,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:49.912Z"
+  },
+  {
+    "id": 5,
+    "title": "Sapiens: A Brief History of Humankind",
+    "price_gbp": 54.23,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:49.913Z"
+  },
+  {
+    "id": 6,
+    "title": "The Requiem Red",
+    "price_gbp": 22.65,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.914Z"
+  },
+  {
+    "id": 7,
+    "title": "The Dirty Little Secrets of Getting Your Dream Job",
+    "price_gbp": 33.34,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:49.914Z"
+  },
+  {
+    "id": 8,
+    "title": "The Coming Woman: A Novel Based on the Life of the Infamous Feminist, Victoria Woodhull",
+    "price_gbp": 17.93,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:49.915Z"
+  },
+  {
+    "id": 9,
+    "title": "The Boys in the Boat: Nine Americans and Their Epic Quest for Gold at the 1936 Berlin Olympics",
+    "price_gbp": 22.6,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:49.915Z"
+  },
+  {
+    "id": 10,
+    "title": "The Black Maria",
+    "price_gbp": 52.15,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.916Z"
+  },
+  {
+    "id": 11,
+    "title": "Starving Hearts (Triangular Trade Trilogy, #1)",
+    "price_gbp": 13.99,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:49.916Z"
+  },
+  {
+    "id": 12,
+    "title": "Shakespeare's Sonnets",
+    "price_gbp": 20.66,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:49.916Z"
+  },
+  {
+    "id": 13,
+    "title": "Set Me Free",
+    "price_gbp": 17.46,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:49.916Z"
+  },
+  {
+    "id": 14,
+    "title": "Scott Pilgrim's Precious Little Life (Scott Pilgrim #1)",
+    "price_gbp": 52.29,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:49.917Z"
+  },
+  {
+    "id": 15,
+    "title": "Rip it Up and Start Again",
+    "price_gbp": 35.02,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:49.917Z"
+  },
+  {
+    "id": 16,
+    "title": "Our Band Could Be Your Life: Scenes from the American Indie Underground, 1981-1991",
+    "price_gbp": 57.25,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:49.917Z"
+  },
+  {
+    "id": 17,
+    "title": "Olio",
+    "price_gbp": 23.88,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.917Z"
+  },
+  {
+    "id": 18,
+    "title": "Mesaerion: The Best Science Fiction Stories 1800-1849",
+    "price_gbp": 37.59,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:49.918Z"
+  },
+  {
+    "id": 19,
+    "title": "Libertarianism for Beginners",
+    "price_gbp": 51.33,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:49.918Z"
+  },
+  {
+    "id": 20,
+    "title": "It's Only the Himalayas",
+    "price_gbp": 45.17,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:49.918Z"
+  },
+  {
+    "id": 21,
+    "title": "In Her Wake",
+    "price_gbp": 12.84,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:51.907Z"
+  },
+  {
+    "id": 22,
+    "title": "How Music Works",
+    "price_gbp": 37.32,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:51.907Z"
+  },
+  {
+    "id": 23,
+    "title": "Foolproof Preserving: A Guide to Small Batch Jams, Jellies, Pickles, Condiments, and More: A Foolproof Guide to Making Small Batch Jams, Jellies, Pickles, Condiments, and More",
+    "price_gbp": 30.52,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.907Z"
+  },
+  {
+    "id": 24,
+    "title": "Chase Me (Paris Nights #2)",
+    "price_gbp": 25.27,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.907Z"
+  },
+  {
+    "id": 25,
+    "title": "Black Dust",
+    "price_gbp": 34.53,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.908Z"
+  },
+  {
+    "id": 26,
+    "title": "Birdsong: A Story in Pictures",
+    "price_gbp": 54.64,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.908Z"
+  },
+  {
+    "id": 27,
+    "title": "America's Cradle of Quarterbacks: Western Pennsylvania's Football Factory from Johnny Unitas to Joe Montana",
+    "price_gbp": 22.5,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.908Z"
+  },
+  {
+    "id": 28,
+    "title": "Aladdin and His Wonderful Lamp",
+    "price_gbp": 53.13,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.908Z"
+  },
+  {
+    "id": 29,
+    "title": "Worlds Elsewhere: Journeys Around Shakespeare’s Globe",
+    "price_gbp": 40.3,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.910Z"
+  },
+  {
+    "id": 30,
+    "title": "Wall and Piece",
+    "price_gbp": 44.18,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:51.910Z"
+  },
+  {
+    "id": 31,
+    "title": "The Four Agreements: A Practical Guide to Personal Freedom",
+    "price_gbp": 17.66,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.910Z"
+  },
+  {
+    "id": 32,
+    "title": "The Five Love Languages: How to Express Heartfelt Commitment to Your Mate",
+    "price_gbp": 31.05,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.910Z"
+  },
+  {
+    "id": 33,
+    "title": "The Elephant Tree",
+    "price_gbp": 23.82,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.910Z"
+  },
+  {
+    "id": 34,
+    "title": "The Bear and the Piano",
+    "price_gbp": 36.89,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:51.911Z"
+  },
+  {
+    "id": 35,
+    "title": "Sophie's World",
+    "price_gbp": 15.94,
+    "in_stock": true,
+    "rating": "Five",
+    "scraped_at": "2026-08-01T06:14:51.911Z"
+  },
+  {
+    "id": 36,
+    "title": "Penny Maybe",
+    "price_gbp": 33.29,
+    "in_stock": true,
+    "rating": "Three",
+    "scraped_at": "2026-08-01T06:14:51.911Z"
+  },
+  {
+    "id": 37,
+    "title": "Maude (1883-1993):She Grew Up with the country",
+    "price_gbp": 18.02,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:51.911Z"
+  },
+  {
+    "id": 38,
+    "title": "In a Dark, Dark Wood",
+    "price_gbp": 19.63,
+    "in_stock": true,
+    "rating": "One",
+    "scraped_at": "2026-08-01T06:14:51.912Z"
+  },
+  {
+    "id": 39,
+    "title": "Behind Closed Doors",
+    "price_gbp": 52.22,
+    "in_stock": true,
+    "rating": "Four",
+    "scraped_at": "2026-08-01T06:14:51.912Z"
+  },
+  {
+    "id": 40,
+    "title": "You can't bury them all: Poems",
+    "price_gbp": 33.63,
+    "in_stock": true,
+    "rating": "Two",
+    "scraped_at": "2026-08-01T06:14:51.912Z"
+  }
+]
